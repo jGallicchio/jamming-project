@@ -9,7 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: []
+      playlistName: 'My Playlist',
+      playlistTracks: []
     };
     //bind this to functions to work properly when passed to other components
     this.addTrack = this.addTrack.bind(this);
