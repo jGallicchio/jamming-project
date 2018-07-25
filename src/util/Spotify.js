@@ -28,8 +28,8 @@ const Spotify = {
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
-      if(jsonResponse.track) {
-        return jsonResponse.track.map(track => {
+      if(jsonResponse.tracks) {
+        return jsonResponse.tracks.items.map(track => {
           return {
             id: track.id,
             name: track.name,
