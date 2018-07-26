@@ -63,9 +63,9 @@ const Spotify = {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
-          'Authorization': accessToken,
+          'Authorization': `Bearer ${accessToken}`,
         },
-        body: name
+        body: JSON.stringify({name: name})
       });
       if (response.ok) {
         const jsonResponse = await response.json();
@@ -85,7 +85,7 @@ const Spotify = {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        'Authorization': accessToken,
+        'Authorization': `Bearer ${accessToken}`,
       },
       body: uriArray
     }).then(response => {
@@ -99,6 +99,7 @@ const Spotify = {
     if(name && uriArray) {
       Spotify.getUserID().then(res => {
         Spotify.getPlaylistID(name, res).then(res => {
+          console.log(res);
           Spotify.postPlaylist(res.useID, res.playID, uriArray);
         });
       });
