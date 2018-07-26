@@ -69,10 +69,8 @@ const Spotify = {
       });
       if (response.ok) {
         const jsonResponse = await response.json();
-        return {
-          playID: jsonResponse.playlist.id,
-          useID: user_id
-        }
+        console.log(jsonResponse.id);
+        return jsonResponse.id;
       }
     }
     catch(error) {
@@ -87,20 +85,20 @@ const Spotify = {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${accessToken}`,
       },
-      body: uriArray
+      body: JSON.stringify({uriArray: uriArray})
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
-      return jsonResponse.playlist.id;
+      console.log(jsonResponse);
+      return jsonResponse.id;
     });
   },
 
   savePlaylist(name, uriArray) {
     if(name && uriArray) {
-      Spotify.getUserID().then(res => {
-        Spotify.getPlaylistID(name, res).then(res => {
-          console.log(res);
-          Spotify.postPlaylist(res.useID, res.playID, uriArray);
+      Spotify.getUserID().then(user_id => {
+        Spotify.getPlaylistID(name, user_id).then(playlist_id => {
+          Spotify.postPlaylist(user_id, playlist_id, uriArray);
         });
       });
     }
