@@ -85,7 +85,7 @@ const Spotify = {
         'Content-type': 'application/json',
         'Authorization': `Bearer ${accessToken}`,
       },
-      body: JSON.stringify({uriArray: uriArray})
+      body: JSON.stringify({uris: uriArray})
     }).then(response => {
       return response.json();
     }).then(jsonResponse => {
