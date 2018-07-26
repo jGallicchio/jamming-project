@@ -23,9 +23,10 @@ class App extends Component {
   }
   //adds track to playlistTracks array
   addTrack(track) {
-    if(this.state.playlistTracks.find(savedTrack =>
+    if(!this.state.playlistTracks.find(savedTrack =>
       savedTrack.id === track.id)) {
-        const newPlaylist = this.state.playlistTracks.push(track);
+        const newPlaylist = this.state.playlistTracks;
+        newPlaylist.push(track);
         this.setState({playlistTracks: newPlaylist});
     }
   }
@@ -33,7 +34,8 @@ class App extends Component {
   removeTrack(track) {
     for(let i = 0; i < this.state.playlistTracks.length; i++) {
       if(this.state.playlistTracks[i].id === track.id) {
-        const newPlaylist = this.state.playlistTracks.splice(i, 1);
+        const newPlaylist = this.state.playlistTracks;
+        newPlaylist.splice(i, 1);
         this.setState({playlistTracks: newPlaylist});
       }
     }
@@ -45,7 +47,7 @@ class App extends Component {
   //saves the playlist to the user's account
   savePlaylist() {
     let trackURIs = [];
-    if(this.state.playlistTracks) {
+    if(this.state.playlistTracks[0]) {
       trackURIs = this.state.playlistTracks.map(track => {
         return track.uri;
       });
