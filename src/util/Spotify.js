@@ -2,7 +2,8 @@
 let accessToken = '';
 //constant variables for ID and URI
 const clientID = '164c8290f1624c27ac34cf0b1aad7939';
-const URI = 'https://jamming_proj.surge.sh/';
+//const URI = 'https://jamming_proj.surge.sh/';
+const URI = 'http://localhost:3000/';
 
 const Spotify = {
   getAccessToken() {

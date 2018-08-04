@@ -20,6 +20,8 @@ class App extends Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.reset = this.reset.bind(this);
+    this.searchReset = this.searchReset.bind(this);
   }
   //adds track to playlistTracks array
   addTrack(track) {
@@ -54,8 +56,25 @@ class App extends Component {
     }
     Spotify.savePlaylist(this.state.playlistName, trackURIs);
     this.setState({
+      searchResults: [],
       playlistName: 'New Playlist',
       playlistTracks: []
+    })
+  }
+
+  //clears the search results, playlist list, and resets the playlist title
+  reset() {
+    this.setState({
+      searchResults: [],
+      playlistName: 'New Playlist',
+      playlistTracks: []
+    })
+  }
+
+  //clears the search results when the input is empty
+  searchReset() {
+    this.setState({
+      searchResults: []
     })
   }
 
@@ -68,12 +87,12 @@ class App extends Component {
   render() {
     return (
     <div>
-      <h1>Ja<span className="highlight">mmm</span>ing</h1>
+      <h1 onClick={this.handleClick}>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
-        <SearchBar onSearch={this.search}/>
+        <SearchBar onSearch={this.search} onReset={this.searchReset}/>
         <div className="App-playlist">
           <SearchResults onAdd={this.addTrack} isRemoval={false} searchResults={this.state.searchResults} />
-          <Playlist onSave={this.savePlaylist} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} isRemoval={true} name={this.state.playlistName} tracks={this.state.playlistTracks}/>
+          <Playlist onSave={this.savePlaylist} onReset={this.reset} onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} isRemoval={true} name={this.state.playlistName} tracks={this.state.playlistTracks}/>
         </div>
       </div>
     </div>
